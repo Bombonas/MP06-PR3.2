@@ -22,6 +22,9 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoCollection;
 
+import org.bson.BsonInt32;
+import org.bson.BsonInt64;
+import org.bson.BsonNumber;
 import org.bson.BsonString;
 import org.bson.Document;
 import org.jsoup.Jsoup;
@@ -103,7 +106,7 @@ public class PR32CreateMain {
                     String answerCount = row.attr("AnswerCount");
                     String commentCount = row.attr("CommentCount");
                     String contentLicense = row.attr("ContentLicense");
-                    String viewCount = row.attr("ViewCount");
+                    int viewCount = Integer.parseInt(row.attr("ViewCount"));
     
                     org.bson.Document document = new org.bson.Document();
                     document.put("id", new BsonString(id));
@@ -119,7 +122,7 @@ public class PR32CreateMain {
                     document.put("answerCount", new BsonString(answerCount));
                     document.put("commentCount", new BsonString(commentCount));
                     document.put("contentLicense", new BsonString(contentLicense));
-                    document.put("viewCount", new BsonString(viewCount));
+                    document.put("viewCount", new BsonInt32(viewCount));
                     
                     collection.insertOne(document);
             }
